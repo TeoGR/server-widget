@@ -1,0 +1,23 @@
+{
+  "name": "api-rest-widgetpasarela",
+  "version": "1.0.0",
+  "description": "API que recibe la respuesta del multicash de la pasarela",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js localhost 3100"
+  },
+  "author": "MateoGR",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "socket.io": "^4.4.1",
+    "xml2js": "^0.4.23",
+    "xml2json": "^0.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
