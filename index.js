@@ -28,12 +28,6 @@ const server = app.listen(app.get('port'), () => {
     console.log("El servidor está inicializado en el puerto", app.get('port'));
 });
 
-//websocket
-// const io = require('socket.io')(server, {
-//     cors: {
-//         origin: '*',
-//     }
-// });
 const socketio = require('socket.io');
 const io = socketio(server, {
     cors: {
@@ -89,6 +83,7 @@ async function listenPasarela(req, res) {
                     "detalle": {},
                     "estado": "pendiente"
                 };
+                res.send(400, error.message);
             } else {
                 console.log('linea 33')
                 multicash = result;
@@ -116,22 +111,24 @@ async function listenPasarela(req, res) {
                         "estado": "pendiente"
                     };
                     res.send(400, error.message);
-                } else {
-                    console.log('linea 60')
-                    //enviar info por el socket
-                    //io.on('rtaWidget', referencia)
-
-                    io.on('connection', (socket) => {
-                        console.log('new connection', socket.id)
-                        //el nombre del canal es el mismo numero de referencia para que sea unico 
-                        io.emit(referencia, referencia);
-
-                        socket.on('disconnect', () => { })
-                    })
-
-                    return res.send(200, 'exito')
                 }
+                //se borra el else para que si o si pase por aca
+                io.on('connection', (socket) => {
+                    console.log('new connection', socket.id)
+                    //el nombre del canal es el mismo numero de referencia para que sea unico 
+                    io.emit(referencia, responsemulticash);
+                    // socket.disconnect();
+
+                    // socket.on('disconnect', () => {
+                    //     console.log('entre al disconnect')
+                    //     console.log('ya pase por el disconnect')
+
+                    // })
+                })
+                res.send(200, 'exito')
             }
+            console.log('linea 130: ', responsemulticash)
+            return res;
         })
     } catch (error) {
         console.log('linea 72')
