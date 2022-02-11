@@ -116,8 +116,7 @@ async function listenPasarela(req, res) {
                 io.on('connection', (socket) => {
                     console.log('new connection', socket.id)
                     //el nombre del canal es el mismo numero de referencia para que sea unico 
-                    console.log('referencia:', referencia, "response:", responsemulticash)
-                    io.emit(referencia, responsemulticash);
+                    io.emit(referenciaorigen, responsemulticash);
                     // socket.disconnect();
 
                     // socket.on('disconnect', () => {
@@ -129,6 +128,7 @@ async function listenPasarela(req, res) {
                 res.send(200, 'exito')
             }
             console.log('linea 130: ', responsemulticash)
+            console.log('referencia:', referenciaorigen, "response:", responsemulticash)
             return res;
         })
     } catch (error) {
