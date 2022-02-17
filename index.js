@@ -113,10 +113,13 @@ async function listenPasarela(req, res) {
                     res.send(400, error.message);
                 }
                 //se borra el else para que si o si pase por aca
+                let nombreCanal = "closeModal_" + referenciaorigen;
+                console.log(nombreCanal)
                 io.on('connection', (socket) => {
                     console.log('new connection', socket.id)
                     //el nombre del canal es el mismo numero de referencia para que sea unico 
                     io.emit(referenciaorigen, responsemulticash);
+                    io.emit(nombreCanal, true);
                     // socket.disconnect();
 
                     // socket.on('disconnect', () => {
